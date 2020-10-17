@@ -28,13 +28,19 @@ export default class Server {
         console.log('Escuchando conexiones - sockets');
 
         this.io.on('connection', (cliente) => {
-            console.log('Cliente conectado');
+            console.log('Cliente conectado ' + cliente.id);
+            
+            socket.conectarCliente( cliente );
+
+            // Configurar usuario
+            socket.configurarUsuario( cliente, this.io);
 
             // Mensaje
             socket.mensaje(cliente, this.io);
 
             // Desconectar el cliente.
             socket.desconectar(cliente);
+
         });
     }
 
